@@ -4,4 +4,4 @@ This project uses streamlit to run UI.
 Application can be accessed currently on:
 http://44.214.140.50/
 
-This is running on Docker container
+This is running on Docker container.
