@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build Docker image') {
             steps {
-                sh 'docker login -u ${env.DOCKER_USERNAME} -p ${DOCKERHUB_PASSWD}'
+                sh 'docker login -u "${env.DOCKER_USERNAME}" -p "${DOCKERHUB_PASSWD}"'
                 sh 'docker build -t hiteshdev47/data-clenz-app:latest .'
                 sh 'docker push hiteshdev47/data-clenz-app:latest'
             }
