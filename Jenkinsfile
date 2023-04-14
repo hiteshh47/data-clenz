@@ -4,9 +4,12 @@ pipeline {
     stages {
         stage('Build Docker image') {
             steps {
-                sh "docker login -u ${env.DOCKER_USERNAME} -p ${env.DOCKERHUB_PASSWD}"
-                sh 'docker build -t hiteshdev47/data-clenz-app:latest .'
-                sh 'docker push hiteshdev47/data-clenz-app:latest'
+                withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKERHUB_PASSWD')]) {
+                    sh "docker rmi -f hiteshdev47/data-clenz-app:latest"
+                    sh "docker login -u $DOCKER_USERNAME -p $DOCKERHUB_PASSWD"
+                    sh 'docker build -t hiteshdev47/data-clenz-app:latest .'
+                    sh 'docker push hiteshdev47/data-clenz-app:latest'
+                }
             }
         }
         stage('Test') {
