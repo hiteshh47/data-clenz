@@ -11,13 +11,15 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sshPublisher(publishers: [sshPublisherDesc(configName: 'data-clenz', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''sudo docker rm -f data-clenz
-                sudo docker rmi hiteshdev47/data-clenz-app
-                sudo docker login -u hiteshdev47 -p Hitesh47docker
-                sudo docker pull hiteshdev47/data-clenz-app:latest
-                sudo docker run -d --name data-clenz -p 80:8501 data-clenz-app
-                sudo docker ps''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
-            }
+                script{
+                    sshPublisher(publishers: [sshPublisherDesc(configName: 'data-clenz', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''sudo docker rm -f data-clenz
+                    sudo docker rmi hiteshdev47/data-clenz-app
+                    sudo docker login -u hiteshdev47 -p Hitesh47docker
+                    sudo docker pull hiteshdev47/data-clenz-app:latest
+                    sudo docker run -d --name data-clenz -p 80:8501 data-clenz-app
+                    sudo docker ps''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+                }
+            }   
         }
         stage('Deploy') {
             steps {
