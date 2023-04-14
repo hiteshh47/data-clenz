@@ -4,8 +4,9 @@ pipeline {
     stages {
         stage('Build Docker image') {
             steps {
-                sh 'docker login -u "hiteshdev47" -p "${env.dock}"'
-                sh 'docker build -t data-clenz-app'
+                sh 'docker login -u "hiteshdev47" -p "Hitesh47docker"'
+                sh 'docker build -t hiteshdev47/data-clenz-app:latest .'
+                sh 'docker push hiteshdev47/data-clenz-app:latest'
             }
         }
         stage('Test') {
