@@ -4,7 +4,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy as np
 import base64
-
+from PIL import Image
 
 from sklearn.experimental import enable_iterative_imputer
 from sklearn.impute import IterativeImputer
@@ -53,7 +53,9 @@ def impute_outliers_IQR(df):
    return df
 
 
-st.title("DATA CLENZ")
+#st.title("DATA CLENZ")
+image = Image.open ("DATACLENZ.png")
+st.image(image)
 
 uploaded_file = st.file_uploader("Upload the Sensor Data [Currently accepting Excel(.xlsx) Format]")
 
@@ -92,6 +94,7 @@ if uploaded_file is not None:
               st.write("Number of outliers in sensor: ", str(len(outliers)))
               st.write("Max outlier value: ", str(outliers.max()))
               st.write("Min outlier value: ", str(outliers.min()))
+              outlier_df = pd.DataFrame(outliers)
 
               #Final NaN imputed outlier data frame    
               sensor_data_NaN = pd.DataFrame()
@@ -191,9 +194,14 @@ if uploaded_file is not None:
                 sensor_data_update = sensor_data.copy()
                 sensor_data_update[x] = df_mice_imputed
                 csv = sensor_data_update.to_csv(index = False)
+                csv = sensor_data_update.to_csv(index = False)
+                csv1 = outlier_df.to_csv(index = True)
                 b64 = base64.b64encode(csv.encode()).decode()
-                href = f'<a href="data:file/csv;base64,{b64}" download="Mice_Imputation.csv">Download</a>'
-                st.download_button(label='Download', data=csv, file_name='Mice_Imputation.csv', mime='text/csv')
+                b641 = base64.b64encode(csv1.encode()).decode()
+                href = f'<a href="data:file/csv;base64,{b64}" download="Mice_Imputation.csv">Download imputed file</a>'
+                st.download_button(label='Download imputed file', data=csv, file_name='Mice_Imputation.csv', mime='text/csv')
+                href1 = f'<a href="data:file/csv;base64,{b641}" download="Outlier.csv">Download outliers file</a>'
+                st.download_button(label='Download outliers file', data=csv1, file_name='Outlier.csv', mime='text/csv')
               else:
                   st.write("Thank you for using the application")
               #"Mice_Imputation.csv"
@@ -233,9 +241,13 @@ if uploaded_file is not None:
                 sensor_data_update = sensor_data.copy()
                 sensor_data_update[x] = df_knn_imputed
                 csv = sensor_data_update.to_csv(index = False)
+                csv1 = outlier_df.to_csv(index = True)
                 b64 = base64.b64encode(csv.encode()).decode()
+                b641 = base64.b64encode(csv1.encode()).decode()
                 href = f'<a href="data:file/csv;base64,{b64}" download="KNN_Imputation.csv">Download</a>'
                 st.download_button(label='Download', data=csv, file_name='KNN_Imputation.csv', mime='text/csv')
+                href1 = f'<a href="data:file/csv;base64,{b641}" download="Outlier.csv">Download outliers file</a>'
+                st.download_button(label='Download outliers file', data=csv1, file_name='Outlier.csv', mime='text/csv')
               else:
                   st.warning("Thank you for using the application")
 
@@ -275,9 +287,13 @@ if uploaded_file is not None:
                 sensor_data_update = sensor_data.copy()
                 sensor_data_update[x] = df_inter
                 csv = sensor_data_update.to_csv(index = False)
+                csv1 = outlier_df.to_csv(index = True)
                 b64 = base64.b64encode(csv.encode()).decode()
+                b641 = base64.b64encode(csv1.encode()).decode()
                 href = f'<a href="data:file/csv;base64,{b64}" download="Interpolation_Imputation.csv">Download</a>'
                 st.download_button(label='Download', data=csv, file_name='Interpolation_Imputation.csv', mime='text/csv')
+                href1 = f'<a href="data:file/csv;base64,{b641}" download="Outlier.csv">Download outliers file</a>'
+                st.download_button(label='Download outliers file', data=csv1, file_name='Outlier.csv', mime='text/csv')
               else:
                   st.write("Thank you for using the application")
 
@@ -343,9 +359,13 @@ if uploaded_file is not None:
                     sensor_data_update = sensor_data.copy()
                     sensor_data_update[x] = forecast_box_jen
                     csv = sensor_data_update.to_csv(index = False)
+                    csv1 = outlier_df.to_csv(index = True)
                     b64 = base64.b64encode(csv.encode()).decode()
+                    b641 = base64.b64encode(csv1.encode()).decode()
                     href = f'<a href="data:file/csv;base64,{b64}" download="Box_Jenkins_Imputation.csv">Download</a>'
                     st.download_button(label='Download', data=csv, file_name='Box_Jenkins_Imputation.csv', mime='text/csv')
+                    href1 = f'<a href="data:file/csv;base64,{b641}" download="Outlier.csv">Download outliers file</a>'
+                    st.download_button(label='Download outliers file', data=csv1, file_name='Outlier.csv', mime='text/csv')
                 else:
                     st.write("Thank you for using the application")
               else:
@@ -414,9 +434,13 @@ if uploaded_file is not None:
                     sensor_data_update = sensor_data.copy()
                     sensor_data_update[x] = forecast_exp_smooth
                     csv = sensor_data_update.to_csv(index = False)
+                    csv1 = outlier_df.to_csv(index = True)
                     b64 = base64.b64encode(csv.encode()).decode()
+                    b641 = base64.b64encode(csv1.encode()).decode()
                     href = f'<a href="data:file/csv;base64,{b64}" download="Exp_Smoothening_Imputation.csv">Download</a>'
                     st.download_button(label='Download', data=csv, file_name='Exp_Smoothening_Imputation.csv', mime='text/csv')
+                    href1 = f'<a href="data:file/csv;base64,{b641}" download="Outlier.csv">Download outliers file</a>'
+                    st.download_button(label='Download outliers file', data=csv1, file_name='Outlier.csv', mime='text/csv')
                 else:
                     st.write("Thank you for using the application")
               else:
