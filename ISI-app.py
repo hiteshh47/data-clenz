@@ -56,8 +56,13 @@ def impute_outliers_IQR(df):
 #st.title("DATA CLENZ")
 image = Image.open ("DATACLENZ.png")
 st.image(image)
-
-uploaded_file = st.file_uploader("Upload the Sensor Data [Currently accepting Excel(.xlsx) Format]")
+st.write("**Welcome to DATA CLENZ application by Internet Sciences.**")
+st.write("<u>Please follow the instructions:</u>",unsafe_allow_html=True)
+st.write("1. This application accepts IOT Sensor data in .xlsx format")
+st.write("2. User can visualize outliers from all sensors and can select one sensor for performing Imputation.")
+st.write("3. User has the choice to select among 5 Imputation algorithms provided by this application and download clean imputed Sensor Data file.")
+st.write("\n")
+uploaded_file = st.file_uploader("**Upload the Sensor Data [Currently accepting Excel(.xlsx) Format]**")
 
 def new_func():
     by = st.download_button()
@@ -188,8 +193,8 @@ if uploaded_file is not None:
               rmse_pandas = sqrt(mean_squared_error(sensor_data[x], df_mice_imputed))
               st.write('MICE Imputation RMSE :',rmse_pandas)
               ##Downloading Imputed Dataset
-              b = st.text_input('Please enter Yes to download CSV file ')
-              if b == 'Yes':
+              b = st.text_input('Please enter Y if you wish to download output files ')
+              if b == 'Y':
                 sensor_data_update = pd.DataFrame()
                 sensor_data_update = sensor_data.copy()
                 sensor_data_update[x] = df_mice_imputed
@@ -200,8 +205,8 @@ if uploaded_file is not None:
                 b641 = base64.b64encode(csv1.encode()).decode()
                 href = f'<a href="data:file/csv;base64,{b64}" download="Mice_Imputation.csv">Download imputed file</a>'
                 st.download_button(label='Download imputed file', data=csv, file_name='Mice_Imputation.csv', mime='text/csv')
-                href1 = f'<a href="data:file/csv;base64,{b641}" download="Outlier.csv">Download outliers file</a>'
-                st.download_button(label='Download outliers file', data=csv1, file_name='Outlier.csv', mime='text/csv')
+                href1 = f'<a href="data:file/csv;base64,{b641}" download="Outlier.csv">Download outliers corrected in this imputation</a>'
+                st.download_button(label='Download outliers corrected in this imputation', data=csv1, file_name='Outlier.csv', mime='text/csv')
               else:
                   st.write("Thank you for using the application")
               #"Mice_Imputation.csv"
@@ -235,8 +240,8 @@ if uploaded_file is not None:
               rmse_pandas = sqrt(mean_squared_error(sensor_data[x], df_knn_imputed))
               st.write('KNN Imputation RMSE :',rmse_pandas)
               ##Downloading Imputed Dataset
-              c = st.text_input('Please enter Yes to download CSV file ')
-              if c == 'Yes':
+              c = st.text_input('Please enter Y if you wish to download output files ')
+              if c == 'Y':
                 sensor_data_update = pd.DataFrame()
                 sensor_data_update = sensor_data.copy()
                 sensor_data_update[x] = df_knn_imputed
@@ -246,8 +251,8 @@ if uploaded_file is not None:
                 b641 = base64.b64encode(csv1.encode()).decode()
                 href = f'<a href="data:file/csv;base64,{b64}" download="KNN_Imputation.csv">Download</a>'
                 st.download_button(label='Download', data=csv, file_name='KNN_Imputation.csv', mime='text/csv')
-                href1 = f'<a href="data:file/csv;base64,{b641}" download="Outlier.csv">Download outliers file</a>'
-                st.download_button(label='Download outliers file', data=csv1, file_name='Outlier.csv', mime='text/csv')
+                href1 = f'<a href="data:file/csv;base64,{b641}" download="Outlier.csv">Download outliers corrected in this imputation</a>'
+                st.download_button(label='Download outliers corrected in this imputation', data=csv1, file_name='Outlier.csv', mime='text/csv')
               else:
                   st.warning("Thank you for using the application")
 
@@ -281,8 +286,8 @@ if uploaded_file is not None:
               rmse_pandas = sqrt(mean_squared_error(sensor_data[x], df_inter))
               st.write('Interpolation Imputation RMSE :',rmse_pandas)
               ##Downloading Imputed Dataset
-              d = st.text_input('Please enter Yes to download CSV file ')
-              if d == 'Yes':
+              d = st.text_input('Please enter Y if you wish to download output files ')
+              if d == 'Y':
                 sensor_data_update = pd.DataFrame()
                 sensor_data_update = sensor_data.copy()
                 sensor_data_update[x] = df_inter
@@ -292,8 +297,8 @@ if uploaded_file is not None:
                 b641 = base64.b64encode(csv1.encode()).decode()
                 href = f'<a href="data:file/csv;base64,{b64}" download="Interpolation_Imputation.csv">Download</a>'
                 st.download_button(label='Download', data=csv, file_name='Interpolation_Imputation.csv', mime='text/csv')
-                href1 = f'<a href="data:file/csv;base64,{b641}" download="Outlier.csv">Download outliers file</a>'
-                st.download_button(label='Download outliers file', data=csv1, file_name='Outlier.csv', mime='text/csv')
+                href1 = f'<a href="data:file/csv;base64,{b641}" download="Outlier.csv">Download outliers corrected in this imputation</a>'
+                st.download_button(label='Download outliers corrected in this imputation', data=csv1, file_name='Outlier.csv', mime='text/csv')
               else:
                   st.write("Thank you for using the application")
 
@@ -353,8 +358,8 @@ if uploaded_file is not None:
                 rmse_pandas = sqrt(mean_squared_error(sensor_data[x], df_forecast_box_jen))
                 st.write('Box Jenkins Imputation RMSE :',rmse_pandas)
                 ##Downloading Imputed Dataset
-                e = st.text_input('Please enter Yes to download CSV file ')
-                if e == 'Yes':
+                e = st.text_input('Please enter Y if you wish to download output files ')
+                if e == 'Y':
                     sensor_data_update = pd.DataFrame()
                     sensor_data_update = sensor_data.copy()
                     sensor_data_update[x] = forecast_box_jen
@@ -364,8 +369,8 @@ if uploaded_file is not None:
                     b641 = base64.b64encode(csv1.encode()).decode()
                     href = f'<a href="data:file/csv;base64,{b64}" download="Box_Jenkins_Imputation.csv">Download</a>'
                     st.download_button(label='Download', data=csv, file_name='Box_Jenkins_Imputation.csv', mime='text/csv')
-                    href1 = f'<a href="data:file/csv;base64,{b641}" download="Outlier.csv">Download outliers file</a>'
-                    st.download_button(label='Download outliers file', data=csv1, file_name='Outlier.csv', mime='text/csv')
+                    href1 = f'<a href="data:file/csv;base64,{b641}" download="Outlier.csv">Download outliers corrected in this imputation</a>'
+                    st.download_button(label='Download outliers corrected in this imputation', data=csv1, file_name='Outlier.csv', mime='text/csv')
                 else:
                     st.write("Thank you for using the application")
               else:
@@ -428,8 +433,8 @@ if uploaded_file is not None:
                 rmse_pandas = sqrt(mean_squared_error(sensor_data[x], df_forecast_exp_smooth))
                 st.write('Exponential Smoothening Imputation RMSE :',rmse_pandas)
                 ##Downloading Imputed Dataset
-                f = st.text_input('Please enter Yes to download CSV file ')
-                if f == 'Yes':
+                f = st.text_input('Please enter Y if you wish to download output files ')
+                if f == 'Y':
                     sensor_data_update = pd.DataFrame()
                     sensor_data_update = sensor_data.copy()
                     sensor_data_update[x] = forecast_exp_smooth
@@ -439,8 +444,8 @@ if uploaded_file is not None:
                     b641 = base64.b64encode(csv1.encode()).decode()
                     href = f'<a href="data:file/csv;base64,{b64}" download="Exp_Smoothening_Imputation.csv">Download</a>'
                     st.download_button(label='Download', data=csv, file_name='Exp_Smoothening_Imputation.csv', mime='text/csv')
-                    href1 = f'<a href="data:file/csv;base64,{b641}" download="Outlier.csv">Download outliers file</a>'
-                    st.download_button(label='Download outliers file', data=csv1, file_name='Outlier.csv', mime='text/csv')
+                    href1 = f'<a href="data:file/csv;base64,{b641}" download="Outlier.csv">Download outliers corrected in this imputation</a>'
+                    st.download_button(label='Download outliers corrected in this imputation', data=csv1, file_name='Outlier.csv', mime='text/csv')
                 else:
                     st.write("Thank you for using the application")
               else:
