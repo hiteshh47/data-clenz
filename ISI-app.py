@@ -56,13 +56,18 @@ def impute_outliers_IQR(df):
 #st.title("DATA CLENZ")
 image = Image.open ("DATACLENZ.png")
 st.image(image)
-st.write("**Welcome to DATA CLENZ application by Internet Sciences.**")
-st.write("<u>Please follow the instructions:</u>",unsafe_allow_html=True)
-st.write("1. This application accepts IOT Sensor data in .xlsx format")
-st.write("2. User can visualize outliers from all sensors and can select one sensor for performing Imputation.")
-st.write("3. User has the choice to select among 5 Imputation algorithms provided by this application and download clean imputed Sensor Data file.")
+st.write("**About DATACLENZ**")
+st.write("DATACLENZ is a high-performance IoT application software that converts raw data into meaningful data. An all-in-one data management software that collects data from various sources, looks for correlation between the data collected, dilutes the correlation and imputes the data, uses predictive and behavior analytics to improve data quality.")
 st.write("\n")
+st.write("Unique Capabilities:")
+st.write("1. Users can visualize outliers from all sensors and can select one sensor for performing imputation.")
+st.write("2. Users have the choice to select among 5 imputations algorithms provided by this application and download clean imputed Sensor Data files.")
+st.write("\n")
+st.write("**DATACLENZ accepts IoT Sensor data in .xlsx format**")
 uploaded_file = st.file_uploader("**Upload the Sensor Data [Currently accepting Excel(.xlsx) Format]**")
+
+
+
 
 def new_func():
     by = st.download_button()
@@ -113,7 +118,7 @@ if uploaded_file is not None:
               sensor_data_MA = pd.DataFrame()
               sensor_data_MA['Index'] = sensor_data['Index']
               sensor_data_MA[x] = sensor_data[x]
-              st.write(f"**Select your choice of visualization to assess Sensor {y}**")
+              st.write(f"**Select your choice of visualization for outlier Detection of Sensor {y}**")
               option = st.selectbox(
                 'Visualize options:',
                 ('Moving Range', 'Inter Quartile Range (IQR)'))
@@ -161,7 +166,8 @@ if uploaded_file is not None:
         #st.write("You set alpha to:",alpha_value)  
         #x_alpha = float(alpha_value)
         if check=="Y":
-            st.write('**Select an Imputation algorithm from the following options:**')
+            st.write('**Select an Imputation algorithm from the following options:**(MICE is default)')
+           
             option1 = st.selectbox(
             'Imputation options:',
             ('MICE', 'KNN', 'Interpolation', 'Box Jenkins', 'Exponential Smoothening'))
