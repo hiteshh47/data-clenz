@@ -20,8 +20,10 @@ pipeline {
                 script{
                     sshPublisher(publishers: [sshPublisherDesc(configName: 'data-clenz', transfers: [sshTransfer(cleanRemote: false,
                     execCommand: '''echo $DOCKERHUB_PSW |docker login -u $DOCKERHUB_USR --password-stdin 
+                    docker rm -f $(docker ps -a -q) || true
                     docker pull hiteshdev47/data-clenz-app:${BUILD_NUMBER}
-                    sh dock.sh ''', 
+                    docker run -d --name data-clenz -p 80:8501 hiteshdev47/data-clenz-app:${BUILD_NUMBER}
+                    ''', 
                     execTimeout: 120000, flatten: false, makeEmptyDirs: false, 
                     noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '',
                     remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')],
