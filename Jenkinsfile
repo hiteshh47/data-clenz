@@ -10,7 +10,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKERHUB_PASSWD')]) {
                     //sh "docker rmi -f hiteshdev47/data-clenz-app:latest"
                     sh "echo $DOCKERHUB_PASSWD | docker login -u $DOCKER_USERNAME --password-stdin "
-                    sh 'docker build -t hiteshdev47/data-clenz-app:latest .'
+                    sh 'docker build -t hiteshdev47/data-clenz-app:${BUILD_NUMBER} .'
                     sh 'docker push hiteshdev47/data-clenz-app:latest'
                 }
             }
@@ -26,9 +26,9 @@ pipeline {
                 }
             }   
         }
-        stage('Deploy') {
+        stage('Trigger another Job') {
             steps {
-                echo 'Deploying....'
+               build job: 'downstreamJob', parameters: [string(name: 'build_params', value: env.BUILD_NUMBER)]
             }
         }
     }
