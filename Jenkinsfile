@@ -9,7 +9,7 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKERHUB_PASSWD')]) {
                     //sh "docker rmi -f hiteshdev47/data-clenz-app:latest"
-                    sh "docker login -u $DOCKER_USERNAME -p $DOCKERHUB_PASSWD"
+                    sh "echo $DOCKERHUB_PASSWD | docker login -u $DOCKER_USERNAME --password-stdin "
                     sh 'docker build -t hiteshdev47/data-clenz-app:latest .'
                     sh 'docker push hiteshdev47/data-clenz-app:latest'
                 }
