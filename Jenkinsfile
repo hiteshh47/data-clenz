@@ -11,7 +11,7 @@ pipeline {
                     //sh "docker rmi -f hiteshdev47/data-clenz-app:latest"
                     sh "echo $DOCKERHUB_PASSWD | docker login -u $DOCKER_USERNAME --password-stdin "
                     sh 'docker build -t hiteshdev47/data-clenz-app:${BUILD_NUMBER} .'
-                    sh 'docker push hiteshdev47/data-clenz-app:latest'
+                    sh 'docker push hiteshdev47/data-clenz-app:${BUILD_NUMBER}'
                 }
             }
         }
