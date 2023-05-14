@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment{
+        DOCKERHUB = credentials('dockerhub')
+    }
 
     stages {
         stage('Build Docker image') {
@@ -16,7 +19,7 @@ pipeline {
             steps {
                 script{
                     sshPublisher(publishers: [sshPublisherDesc(configName: 'data-clenz', transfers: [sshTransfer(cleanRemote: false,
-                    execCommand: 'sh dock.sh', execTimeout: 120000, flatten: false, makeEmptyDirs: false, 
+                    execCommand: 'echo $DOCKERHUB_PSW |docker login -u $DOCKERHUB_USR --password-stdin; sh dock.sh ', execTimeout: 120000, flatten: false, makeEmptyDirs: false, 
                     noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '',
                     remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')],
                     usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])

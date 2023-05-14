@@ -57,7 +57,7 @@ def impute_outliers_IQR(df):
 image = Image.open ("DATACLENZ.png")
 st.image(image)
 st.write("**About DATACLENZ**")
-st.write("DATACLENZ is a high-performance IoT application software that converts raw data into meaningful data. An all-in-one data management software that collects data from various sources, looks for correlation between the data collected, dilutes the correlation and imputes the data, uses predictive and behavior analytics to improve data quality.")
+st.write("DATACLENZ is a high-performance IoT application software that converts raw data into meaningful data. An all-in-one data management software that collects data from various sources, imputes the data, and uses predictive and behavior analytics to improve data quality.")
 st.write("\n")
 st.write("Unique Capabilities:")
 st.write("1. Users can visualize outliers from all sensors and can select one sensor for performing imputation.")
@@ -118,7 +118,7 @@ if uploaded_file is not None:
               sensor_data_MA = pd.DataFrame()
               sensor_data_MA['Index'] = sensor_data['Index']
               sensor_data_MA[x] = sensor_data[x]
-              st.write(f"**Select your choice of visualization for outlier Detection of Sensor {y}**")
+              st.write(f"**Select your choice for outlier Detection of Sensor {y}**")
               option = st.selectbox(
                 'Visualize options:',
                 ('Moving Range', 'Inter Quartile Range (IQR)'))
