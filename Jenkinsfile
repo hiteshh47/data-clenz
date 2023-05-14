@@ -21,6 +21,7 @@ pipeline {
                     sshPublisher(publishers: [sshPublisherDesc(configName: 'data-clenz', transfers: [sshTransfer(cleanRemote: false,
                     execCommand: '''echo $DOCKERHUB_PSW |docker login -u $DOCKERHUB_USR --password-stdin 
                     docker rm -f $(docker ps -a -q) || true
+                    docker rmi $(docker images hiteshdev47/data-clenz-app -q)
                     docker pull hiteshdev47/data-clenz-app:${BUILD_NUMBER}
                     docker run -d --name data-clenz -p 80:8501 hiteshdev47/data-clenz-app:${BUILD_NUMBER}
                     ''', 
